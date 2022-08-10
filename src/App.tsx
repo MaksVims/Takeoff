@@ -1,10 +1,12 @@
 import React from 'react';
 
+import { LoginPage } from './pages/LoginPage';
+
 function App() {
   return (
-    <div >
-      <h1>Start app</h1>
-    </div>
+    < >
+      <LoginPage />
+    </>
   );
 }
 
