@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { LoginPage } from './pages/LoginPage';
+import { AppRouter } from './components/AppRouter';
 
 function App() {
   return (
     < >
-      <LoginPage />
+      <AppRouter />
     </>
   );
 }
