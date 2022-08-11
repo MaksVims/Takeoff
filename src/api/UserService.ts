@@ -4,9 +4,10 @@ import { User } from '../types/user'
 
 export class UserService {
 
-  static async getAll() {
-    const users = await axios.get<User[]>('http://localhost:3001/users')
-    return users.data
+  static async getByEmailAndPassword(email: string, password: string) {
+    const url = `http://localhost:3001/users?email=${email}&password=${password}`
+    const user = await axios.get<User[]>(url)
+    return user.data[0]
   }
 
 }
