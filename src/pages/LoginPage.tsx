@@ -11,7 +11,7 @@ export const LoginPage = () => {
   const [disabled, setDisabled] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signIn } = useActions()
+  const { fetchUser } = useActions()
 
   useEffect(() => {
     if (email === '' || password.length < 6) {
@@ -28,7 +28,7 @@ export const LoginPage = () => {
   };
 
   const onFinish = async (values: LoginForm) => {
-    await signIn(values)
+    await fetchUser(values)
     setDisabled(true)
     setEmail('')
     setPassword('')
