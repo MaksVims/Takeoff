@@ -1,6 +1,11 @@
-import { authActions, signIn } from './authSlice'
+import { authActions, fetchUser } from './authSlice'
+import { fetchContacts, removeContact, addContact, updateContact } from './contactsSlice'
 
 export default {
   ...authActions,
-  signIn,
+  fetchUser,
+  fetchContacts,
+  removeContact,
+  addContact,
+  updateContact,
 }
