@@ -1,14 +1,16 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
+import { selectUser } from '../store/authSlice';
+
 import { LoginPage } from './../pages/LoginPage';
 import { useAppSelector } from './../hooks/useAppSelector';
 import { ContactsPage } from './../pages/ContactsPage';
 
 export const AppRouter = () => {
-  const isAuth = useAppSelector(state => state.auth.authenticated)
+  const user = useAppSelector(selectUser)
 
-  if (!isAuth) {
+  if (!user) {
     return (
       <Routes>
         <Route path='/login' element={<LoginPage />} />
@@ -19,8 +21,8 @@ export const AppRouter = () => {
 
   return (
     <Routes>
-      <Route path='/' element={<ContactsPage />} />
-      <Route path='*' element={<Navigate to={'/'} replace />} />
+      <Route path='/contacts' element={<ContactsPage />} />
+      <Route path='*' element={<Navigate to={'/contacts'} replace />} />
     </Routes>
   )
 }
