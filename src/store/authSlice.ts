@@ -1,26 +1,31 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 import { UserService } from './../api/UserService';
 import { LoginForm } from './../types/login';
+import { User } from './../types/user';
+
+import { RootState } from '.';
 
 interface AuthSliceState {
-  authenticated: boolean,
+  user: User | null,
   loading: boolean,
   error: string | null
 }
 
 const initialState: AuthSliceState = {
-  authenticated: false,
+  user: null,
   loading: false,
   error: null,
 }
 
-export const signIn = createAsyncThunk('auth/signIn', async (loginData: LoginForm, { rejectWithValue }) => {
+export const fetchUser = createAsyncThunk('auth/fetchUser', async (loginData: LoginForm, { rejectWithValue }) => {
   try {
     const { email, password } = loginData
-    const users = await UserService.getAll()
-    if (users.find(user => user.email === email || user.password === password)) {
-      return true
+    const user = await UserService.getByEmailAndPassword(email, password)
+
+    if (user) {
+      return user
     }
     throw new Error('User not found')
   } catch (e) {
@@ -33,20 +38,23 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     signOut: (state) => {
-      state.authenticated = false
+      state.user = null
+    },
+    signIn: (state, action: PayloadAction<User>) => {
+      state.user = action.payload
     },
   },
   extraReducers: (build) => {
     build
-      .addCase(signIn.pending, (state) => {
+      .addCase(fetchUser.pending, (state) => {
         state.error = null;
         state.loading = true
       })
-      .addCase(signIn.fulfilled, (state) => {
+      .addCase(fetchUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.loading = false
-        state.authenticated = true
+        state.user = action.payload
       })
-      .addCase(signIn.rejected, (state, action) => {
+      .addCase(fetchUser.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload as string
       })
@@ -55,3 +63,4 @@ const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer
 export const authActions = authSlice.actions
+export const selectUser = (state:RootState) => state.auth.user
