@@ -6,12 +6,14 @@ import { ValidateErrorEntity } from 'rc-field-form/lib/interface'
 import { LoginForm } from '../types/login';
 
 import { useActions } from './../hooks/useActions';
+import { useAppSelector } from './../hooks/useAppSelector';
 
 export const LoginPage = () => {
   const [disabled, setDisabled] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { fetchUser } = useActions()
+  const loadingData = useAppSelector(state => state.auth.loading)
 
   useEffect(() => {
     if (email === '' || password.length < 6) {
@@ -28,18 +30,15 @@ export const LoginPage = () => {
   };
 
   const onFinish = async (values: LoginForm) => {
-    await fetchUser(values)
-    setDisabled(true)
+    fetchUser(values)
     setEmail('')
     setPassword('')
   };
 
-  const onFinishFailed = (errorInfo: ValidateErrorEntity) => {
-    setDisabled(true);
-  };
+  const onFinishFailed = (errorInfo: ValidateErrorEntity) => setDisabled(true);
 
   return (
-    <Row justify='center' align='middle' style={{ height: '100vh' }}>
+    <Row justify='center' align='middle' className='layout__full-screen'>
       <Card title='Login Page' className='card' style={{ textAlign: 'center' }}>
         <Form
           labelCol={{ span: 6 }}
@@ -95,7 +94,7 @@ export const LoginPage = () => {
               block
               type='primary'
               htmlType='submit'
-              disabled={disabled}
+              disabled={loadingData || disabled}
             >
               Login
             </Button>

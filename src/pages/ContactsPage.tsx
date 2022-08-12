@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { List, Typography, Layout, Button } from 'antd';
-import { Content } from 'antd/lib/layout/layout';
+import { List, Layout, Button, PageHeader, Divider, Spin } from 'antd';
+import { Content, Header } from 'antd/lib/layout/layout';
 
 import { selectAllContacts } from '../store/contactsSlice';
 import { selectUser } from '../store/authSlice';
@@ -13,6 +13,7 @@ import { useAppSelector } from './../hooks/useAppSelector';
 export const ContactsPage = () => {
   const user = useAppSelector(selectUser)
   const contacts = useAppSelector(selectAllContacts)
+  const loadContacts = useAppSelector(state => state.contacts.loading)
   const { fetchContacts, signOut } = useActions()
   const [searching, setSearching] = useState('')
 
@@ -27,22 +28,37 @@ export const ContactsPage = () => {
   }), [contacts, searching])
 
   return (
-    <Layout style={{ height: '100vh' }}>
-      <Content>
-        <FormAddContact />
-        <SearchContacts searching={searching} onChange={setSearching} />
-        <Typography.Text strong>Contacts list </Typography.Text>
-        <List
-          bordered
-          size='large'
-          style={{ width: '80%' }}
-          dataSource={filterContacts}
-          renderItem={contact => (
-            <ContactItem contact={contact} />
-          )}
-        />
+    <Layout className='layout__full-screen'>
+      <Header className='header'>
         <Button onClick={() => signOut()}>Sign out</Button>
-      </Content>
+      </Header>
+      <Layout>
+        <Content className='page-container'>
+          <div className='page-content'>
+            <PageHeader className='page-header'>
+              Contacts list {user?.email}
+            </PageHeader>
+            <FormAddContact />
+            <SearchContacts searching={searching} onChange={setSearching} />
+            {loadContacts && !contacts.length
+              ? (<div className='spin'><Spin /></div>)
+              : (
+                <>
+                  <Divider orientation='center'>Contacts list</Divider>
+                  <List
+                    bordered
+                    size='large'
+                    dataSource={filterContacts}
+                    renderItem={contact => (
+                      <ContactItem contact={contact} />
+                    )}
+                  />
+                </>
+              )
+            }
+          </div>
+        </Content>
+      </Layout>
     </Layout>
   )
 }
