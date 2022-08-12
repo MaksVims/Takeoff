@@ -3,9 +3,6 @@
     "react-app",
     "react-app/jest"
   ],
-  "plugins": [
-    "react-hooks"
-  ],
   "rules": {
     "no-console": "warn",
     "quotes": ["error", "single"],
@@ -20,7 +17,6 @@
     }],
     "import/no-anonymous-default-export": ["warn", {
       "allowObject": true
-    }],
-    "react-hooks/exhaustive-deps": "off"
+    }]
   }
 }

@@ -14,18 +14,8 @@
   "contacts": [
     {
       "id": 1,
-      "username": "Steves",
+      "username": "Steve",
       "userId": 1
-    },
-    {
-      "id": 2,
-      "username": "Mark",
-      "userId": 1
-    },
-    {
-      "userId": 1,
-      "username": "adafs",
-      "id": 5
     },
     {
       "userId": 2,
@@ -36,6 +26,11 @@
       "userId": 2,
       "username": "test 2",
       "id": 7
+    },
+    {
+      "userId": 1,
+      "username": "Maria",
+      "id": 8
     }
   ]
 }
