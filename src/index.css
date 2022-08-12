@@ -24,3 +24,114 @@ button {
 }
 
 @import 'antd/dist/antd.css';
+
+.layout__full-screen {
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ant-input {
+  width: 100%;
+}
+
+.page-container {
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page-header {
+  text-indent: 0;
+  font-size: 36px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.icon {
+  font-size: 25px;
+}
+
+.icon--add {
+  color: green;
+}
+
+.icon--add:hover {
+  color: rgb(2, 85, 2);
+}
+
+.base-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.form__add-contacts {
+  margin: 30px 0;
+}
+
+.form__edit-contact-item {
+  width: 90%;
+  flex-shrink: 1 !important;
+}
+
+.form__search-contact {
+  margin-bottom: 20px;
+  display: block;
+}
+
+.input {
+  padding: 8px;
+}
+
+.input__add-contacts {
+  min-width: 280px;
+}
+
+.contacts-list__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btn--remove {
+  color: red;
+}
+
+.btn--remove:hover {
+  border: 1px solid red;
+  color: red;
+}
+
+.spin {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 24px;
+  height: 100%;
+}
+
+@media (max-width: 480px) {
+  .page-content {
+    padding: 12px;
+  }
+
+  .page-header {
+    font-size: 24px;
+    text-align: center;
+  }
+}
