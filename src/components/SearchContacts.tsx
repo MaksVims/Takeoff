@@ -8,16 +8,15 @@ interface SearchContactsProps {
 
 export const SearchContacts: FC<SearchContactsProps> = ({ searching, onChange }) => {
 
-  const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value)
-  }
-
+  const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)
   return (
     <Form
       autoComplete='off'
+      className='base-form form__search-contact'
     >
       <Form.Item label='Search: '>
         <Input
+          placeholder='seaching contact...'
           value={searching}
           onChange={handlerChange}
         />

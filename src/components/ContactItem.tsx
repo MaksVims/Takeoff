@@ -21,28 +21,30 @@ export const ContactItem: FC<ContactItemProps> = ({ contact }) => {
   }
 
   const handleClickEditButton = () => setIsEdit(true)
-  const handleChangeEditField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditValue(e.target.value)
-  }
+  const handleChangeEditField = (e: React.ChangeEvent<HTMLInputElement>) => setEditValue(e.target.value)
 
   return (
     <List.Item>
       {isEdit
         ? (
-          <Form>
-            <Input value={editValue} onChange={handleChangeEditField}></Input>
+          <Form layout='inline' className='base-form'>
+            <Form.Item className='form__edit-contact-item'>
+              <Input value={editValue} onChange={handleChangeEditField} />
+            </Form.Item>
             <Button onClick={handleSaveUpdated}>Save</Button>
           </Form>
         ) : (
-          <>
+          <div className='contacts-list__item'>
             <Typography.Text strong>{contact.username}</Typography.Text>
-            <Button onClick={handleRemoveContact}>
-              <DeleteOutlined color='success-color' />
-            </Button>
-            <Button onClick={handleClickEditButton}>
-              <HighlightOutlined />
-            </Button>
-          </>
+            <div >
+              <Button onClick={handleClickEditButton} className='btn btn--edit'>
+                <HighlightOutlined />
+              </Button>
+              <Button onClick={handleRemoveContact} className='btn btn--remove'>
+                <DeleteOutlined color='success-color' />
+              </Button>
+            </div>
+          </div>
         )
       }
     </List.Item >

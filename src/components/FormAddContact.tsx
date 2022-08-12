@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 
 import { selectUser } from '../store/authSlice';
@@ -21,17 +21,19 @@ export const FormAddContact = () => {
   }
 
   return (
-    <Form>
+    <Form layout='inline' className='base-form form__add-contacts'>
       <Form.Item>
         <Input
+          className='input input__add-contacts'
           placeholder='Add new contacts'
           value={name}
           onChange={handlerChange}
         />
-        <Button onClick={handleAddContact}>
-          <PlusCircleOutlined />
-        </Button>
       </Form.Item>
+      <PlusCircleOutlined
+        className='icon icon--add'
+        onClick={handleAddContact}
+      />
     </Form>
   )
 }
