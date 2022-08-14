@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, Card, Row } from 'antd'
+import { Form, Input, Button, Card, Row, Typography } from 'antd'
 import { UnlockOutlined, UserOutlined } from '@ant-design/icons'
 
 import { LoginForm } from '../types/login';
@@ -25,7 +25,7 @@ export const LoginPage = () => {
   }, [email, password]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(errorLoadingData) resetError()
+    if (errorLoadingData) resetError()
     e.target.name === 'email'
       ? setEmail(e.target.value)
       : setPassword(e.target.value);
@@ -40,6 +40,7 @@ export const LoginPage = () => {
   return (
     <Row justify='center' align='middle' className='layout__full-screen'>
       <Card title='Login Page' className='card' style={{ textAlign: 'center' }}>
+        {errorLoadingData && <Typography className='error error__auth-message'>{errorLoadingData}</Typography>}
         <Form
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 20 }}

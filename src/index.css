@@ -135,3 +135,15 @@ button {
     text-align: center;
   }
 }
+
+.error {
+  color: red;
+}
+
+.error__auth-message {
+  font-size: 16px;
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
