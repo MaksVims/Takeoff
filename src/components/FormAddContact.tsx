@@ -13,10 +13,17 @@ export const FormAddContact = () => {
   const { addContact } = useActions()
 
   const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)
+
   const handleAddContact = () => {
     if (name.length) {
       addContact({ userId: user?.id!, username: name })
       setName('')
+    }
+  }
+
+  const handleKeyDown = (e:React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleAddContact()
     }
   }
 
@@ -28,6 +35,7 @@ export const FormAddContact = () => {
           placeholder='Add new contacts'
           value={name}
           onChange={handlerChange}
+          onKeyDown={handleKeyDown}
         />
       </Form.Item>
       <PlusCircleOutlined
