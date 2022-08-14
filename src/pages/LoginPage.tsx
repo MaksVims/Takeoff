@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Input, Button, Card, Row } from 'antd'
 import { UnlockOutlined, UserOutlined } from '@ant-design/icons'
-import { ValidateErrorEntity } from 'rc-field-form/lib/interface'
 
 import { LoginForm } from '../types/login';
 
@@ -13,8 +12,9 @@ export const LoginPage = () => {
   const [disabled, setDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { fetchUser } = useActions()
+  const { fetchUser, resetError } = useActions()
   const loadingData = useAppSelector(state => state.auth.loading)
+  const errorLoadingData = useAppSelector(state => state.auth.error)
 
   useEffect(() => {
     if (!validateEmail(email) || password.length < 6) {
@@ -25,6 +25,7 @@ export const LoginPage = () => {
   }, [email, password]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(errorLoadingData) resetError()
     e.target.name === 'email'
       ? setEmail(e.target.value)
       : setPassword(e.target.value);
@@ -32,11 +33,9 @@ export const LoginPage = () => {
 
   const onFinish = async (values: LoginForm) => {
     fetchUser(values)
-    setEmail('')
-    setPassword('')
   };
 
-  const onFinishFailed = (errorInfo: ValidateErrorEntity) => setDisabled(true);
+  const onFinishFailed = () => setDisabled(true);
 
   return (
     <Row justify='center' align='middle' className='layout__full-screen'>
