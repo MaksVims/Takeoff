@@ -7,16 +7,17 @@ import { LoginForm } from '../types/login';
 
 import { useActions } from './../hooks/useActions';
 import { useAppSelector } from './../hooks/useAppSelector';
+import { validateEmail } from './../helpers/validateEmail';
 
 export const LoginPage = () => {
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { fetchUser } = useActions()
   const loadingData = useAppSelector(state => state.auth.loading)
 
   useEffect(() => {
-    if (email === '' || password.length < 6) {
+    if (!validateEmail(email) || password.length < 6) {
       setDisabled(true);
     } else {
       setDisabled(false);
